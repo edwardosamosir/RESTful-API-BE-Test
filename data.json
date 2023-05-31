@@ -1,0 +1,76 @@
+{
+    "users": [
+        {
+            "username": "admin",
+            "email": "admin@admin.com",
+            "password": "admin123",
+            "role": "Admin"
+        },
+        {
+            "username": "edwardosamosir",
+            "email": "edwardosamosir@gmail.com",
+            "password": "L154inb4b1$$",
+            "role": "User"
+        },
+        {
+            "username": "alexvolk",
+            "email": "alexandervolk0@gmail.com",
+            "password": "avolkov99",
+            "role": "User"
+        },
+        {
+            "username": "usertester",
+            "email": "user@tester.com",
+            "password": "usertester",
+            "role": "User"
+        }
+    ],
+    "profiles": [
+        {
+            "UserId": 1,
+            "firstName": "admin",
+            "lastName": "admin",
+            "address": "Orchard Road 21, Singapore",
+            "currentBalance": 1000000
+
+        },
+        {
+            "UserId": 2,
+            "firstName": "Edwardo",
+            "lastName": "Samosir",
+            "address": "Salihara St 21, South Jakarta",
+            "currentBalance": 2000000
+        },
+        {
+            "UserId": 3,
+            "firstName": "Alexander",
+            "lastName": "Volkanovski",
+            "address": "Ozzie Road 77, Aussie",
+            "currentBalance": 500000
+        },
+        {
+            "UserId": 4,
+            "firstName": "User",
+            "lastName": "Tester",
+            "address": "Orchard Road 21, Singapore",
+            "currentBalance": 500000
+        }
+    ],
+    "menus": [
+        {
+            "name": "Moonbun",
+            "price": 38000
+        },
+        {
+            "name" : "Sweet Honey Pop Bowl",
+            "price": 22000
+        },
+        {
+            "name": "Mozza Dakgalbi Rice",
+            "price": 52000
+        },
+        {
+            
+        }
+    ]
+}
