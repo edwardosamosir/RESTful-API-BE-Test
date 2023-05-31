@@ -4,25 +4,29 @@
             "username": "admin",
             "email": "admin@admin.com",
             "password": "admin123",
-            "role": "Admin"
+            "role": "Admin",
+            "phoneNumber": "8128987879"
         },
         {
             "username": "edwardosamosir",
             "email": "edwardosamosir@gmail.com",
             "password": "L154inb4b1$$",
-            "role": "User"
+            "role": "Customer",
+            "phoneNumber": "81277832456"
         },
         {
             "username": "alexvolk",
             "email": "alexandervolk0@gmail.com",
             "password": "avolkov99",
-            "role": "User"
+            "role": "Customer",
+            "phoneNumber": "81245648511"
         },
         {
             "username": "usertester",
             "email": "user@tester.com",
             "password": "usertester",
-            "role": "User"
+            "role": "Customer",
+            "phoneNumber": "81265457822"
         }
     ],
     "profiles": [
@@ -58,123 +62,153 @@
     "menus": [
         {
             "name": "Meteor Chicken Rice",
-            "price": 46500
+            "price": 46500,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "XL Meteor Chicken",
-            "price": 68500
+            "price": 68500,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Moon Mandu",
-            "price": 30000
+            "price": 30000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Moon Chicken Skin",
-            "price": 30000
+            "price": 30000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Moonbun",
-            "price": 38000
+            "price": 38000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Geprek Wangi Nasi Sambal Original",
-            "price": 27900
+            "price": 27900,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Geprek Wangi Nasi Sambal Matah",
-            "price": 28900
+            "price": 28900,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Geprek Sambal Ori Mozza",
-            "price": 34400
+            "price": 34400,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Nasi Ayam Penyet",
-            "price": 25500
+            "price": 25500,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Indomie Ayam Penyet",
-            "price": 31000
+            "price": 31000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Tom Yum Gai Grob",
-            "price": 42000
+            "price": 42000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Green Curry Gai Grob",
-            "price": 42000
+            "price": 42000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Spring Onion Gai Grob",
-            "price": 42000
+            "price": 42000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Thai Sweet & Gai Grob",
-            "price": 42000
+            "price": 42000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Pop Bowl",
-            "price": 22000
+            "price": 22000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Nasi Kulit Renyah Idolaku",
-            "price": 19400
+            "price": 19400,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Sweet Honey Pop Bowl",
-            "price": 22000
+            "price": 22000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Mozza Dakgalbi Rice",
-            "price": 52000
+            "price": 52000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Chicken Biryani Bowl",
-            "price": 47900
+            "price": 47900,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Chicken Tikka Masala Big Bowl",
-            "price": 69900
+            "price": 69900,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Tori Steak Teriyaki Don",
-            "price": 44000
+            "price": 44000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Curry Tori Katsu Don",
-            "price": 46000
+            "price": 46000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Mentai Tori Katsu Don",
-            "price": 38000
+            "price": 38000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Favorite Onigiri Bento A",
-            "price": 56000
+            "price": 56000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Favorite Onigiri Bento B",
-            "price": 58500
+            "price": 58500,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Premium Onigiri Bento B",
-            "price": 61001
+            "price": 61001,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Teman Makan",
-            "price": 15000
+            "price": 15000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Bukan Susu Series",
-            "price": 25000
+            "price": 25000,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Kopi Susu Gula Aren",
-            "price": 19900
+            "price": 19900,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         },
         {
             "name": "Blonde Creamy Latte",
-            "price": 15901
+            "price": 15901,
+            "imageUrl": "https://d1sag4ddilekf6.cloudfront.net/compressed_webp/items/IDITE20220602182645089543/detail/f20db8ee_pcriceset.webp"
         }
     ],
     "carts": [
