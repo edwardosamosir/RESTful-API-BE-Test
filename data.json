@@ -32,7 +32,6 @@
             "lastName": "admin",
             "address": "Orchard Road 21, Singapore",
             "currentBalance": 1000000
-
         },
         {
             "UserId": 2,
@@ -58,11 +57,71 @@
     ],
     "menus": [
         {
+            "name": "Meteor Chicken Rice",
+            "price": 46500
+        },
+        {
+            "name": "XL Meteor Chicken",
+            "price": 68500
+        },
+        {
+            "name": "Moon Mandu",
+            "price": 30000
+        },
+        {
+            "name": "Moon Chicken Skin",
+            "price": 30000
+        },
+        {
             "name": "Moonbun",
             "price": 38000
         },
         {
-            "name" : "Sweet Honey Pop Bowl",
+            "name": "Geprek Wangi Nasi Sambal Original",
+            "price": 27900
+        },
+        {
+            "name": "Geprek Wangi Nasi Sambal Matah",
+            "price": 28900
+        },
+        {
+            "name": "Geprek Sambal Ori Mozza",
+            "price": 34400
+        },
+        {
+            "name": "Nasi Ayam Penyet",
+            "price": 25500
+        },
+        {
+            "name": "Indomie Ayam Penyet",
+            "price": 31000
+        },
+        {
+            "name": "Tom Yum Gai Grob",
+            "price": 42000
+        },
+        {
+            "name": "Green Curry Gai Grob",
+            "price": 42000
+        },
+        {
+            "name": "Spring Onion Gai Grob",
+            "price": 42000
+        },
+        {
+            "name": "Thai Sweet & Gai Grob",
+            "price": 42000
+        },
+        {
+            "name": "Pop Bowl",
+            "price": 22000
+        },
+        {
+            "name": "Nasi Kulit Renyah Idolaku",
+            "price": 19400
+        },
+        {
+            "name": "Sweet Honey Pop Bowl",
             "price": 22000
         },
         {
@@ -70,7 +129,164 @@
             "price": 52000
         },
         {
-            
+            "name": "Chicken Biryani Bowl",
+            "price": 47900
+        },
+        {
+            "name": "Chicken Tikka Masala Big Bowl",
+            "price": 69900
+        },
+        {
+            "name": "Tori Steak Teriyaki Don",
+            "price": 44000
+        },
+        {
+            "name": "Curry Tori Katsu Don",
+            "price": 46000
+        },
+        {
+            "name": "Mentai Tori Katsu Don",
+            "price": 38000
+        },
+        {
+            "name": "Favorite Onigiri Bento A",
+            "price": 56000
+        },
+        {
+            "name": "Favorite Onigiri Bento B",
+            "price": 58500
+        },
+        {
+            "name": "Premium Onigiri Bento B",
+            "price": 61001
+        },
+        {
+            "name": "Teman Makan",
+            "price": 15000
+        },
+        {
+            "name": "Bukan Susu Series",
+            "price": 25000
+        },
+        {
+            "name": "Kopi Susu Gula Aren",
+            "price": 19900
+        },
+        {
+            "name": "Blonde Creamy Latte",
+            "price": 15901
+        }
+    ],
+    "carts": [
+        {
+            "UserId": 1,
+            "totalPrice": 230000
+        },
+        {
+            "UserId": 2,
+            "totalPrice": 141900
+        },
+        {
+            "UserId": 3,
+            "totalPrice": 192300
+        },
+        {
+            "UserId": 4,
+            "totalPrice": 96600
+        }
+    ],
+    "cartItems": [
+        {
+            "CartId": 1,
+            "MenuId": 1,
+            "quantity": 2
+        },
+        {
+            "CartId": 1,
+            "MenuId": 2,
+            "quantity": 2
+        },
+        {
+            "CartId": 2,
+            "MenuId": 5,
+            "quantity": 3
+        },
+        {
+            "CartId": 2,
+            "MenuId": 6,
+            "quantity": 1
+        },
+        {
+            "CartId": 3,
+            "MenuId": 23,
+            "quantity": 1
+        },
+        {
+            "CartId": 3,
+            "MenuId": 24,
+            "quantity": 1
+        },
+        {
+            "CartId": 3,
+            "MenuId": 25,
+            "quantity": 1
+        },
+        {
+            "CartId": 3,
+            "MenuId": 29,
+            "quantity": 2
+        },
+        {
+            "CartId": 4,
+            "MenuId": 29,
+            "quantity": 2
+        },
+        {
+            "CartId": 4,
+            "MenuId": 6,
+            "quantity": 1
+        },
+        {
+            "CartId": 4,
+            "MenuId": 7,
+            "quantity": 1
+        }
+    ],
+    "orders": [
+        {
+            "UserId": 1,
+            "totalPrice": 230000
+        },
+        {
+            "UserId": 4,
+            "totalPrice": 96600
+        }
+    ],
+    "orderItems": [
+        {
+            "OrderId": 1,
+            "MenuId": 1,
+            "quantity": 2
+        },
+        {
+            "OrderId": 1,
+            "MenuId": 2,
+            "quantity": 2
+        },
+        {
+            "OrderId": 2,
+            "MenuId": 29,
+            "quantity": 2
+        },
+        {
+            "OrderId": 2,
+            "MenuId": 6,
+            "quantity": 1
+        },
+        {
+            "OrderId": 2,
+            "MenuId": 7,
+            "quantity": 1
         }
     ]
 }
