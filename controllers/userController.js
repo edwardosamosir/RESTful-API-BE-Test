@@ -2,7 +2,6 @@ const { User } = require("../models");
 const { compareHash } = require("../helpers/bcryptHasher");
 const { encodeToken } = require("../helpers/jwtEncoderDecoder");
 
-
 class UserController {
     static async loginUser(req, res, next) {
         try {
