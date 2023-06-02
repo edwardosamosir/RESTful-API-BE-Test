@@ -9,7 +9,7 @@ class MenuController {
         } catch (error) {
             next(error);
         }
-      }
+    }
 }
 
 module.exports = MenuController;

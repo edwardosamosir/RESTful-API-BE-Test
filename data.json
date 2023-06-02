@@ -214,19 +214,23 @@
     "carts": [
         {
             "UserId": 1,
-            "totalPrice": 230000
+            "totalPrice": 230000,
+            "status": true
         },
         {
             "UserId": 2,
-            "totalPrice": 141900
+            "totalPrice": 141900,
+            "status": false
         },
         {
             "UserId": 3,
-            "totalPrice": 192300
+            "totalPrice": 192300,
+            "status": false
         },
         {
             "UserId": 4,
-            "totalPrice": 96600
+            "totalPrice": 96600,
+            "status": true
         }
     ],
     "cartItems": [

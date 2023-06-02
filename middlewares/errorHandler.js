@@ -20,6 +20,15 @@ const errorHandler = (error, req, res, next) => {
             status = 401;
             message = "Invalid Email or Password";
             break;
+        case "AccessTokenMissing":
+            status = 400;
+            message = "Access required, please sign in first!";
+            break;
+        case "InvalidToken":
+        case "JsonWebTokenError":
+            status = 401;
+            message = "Invalid Token";
+            break;
     }
 
     res.status(status).json({ message });

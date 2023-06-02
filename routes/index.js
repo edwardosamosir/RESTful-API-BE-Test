@@ -5,11 +5,12 @@ const menusRouter = require('./menus')
 const cartsRouter = require('./carts')
 const orderRouter = require('./orders')
 const errorHandler = require('../middlewares/errorHandler')
+const userAuthentication = require('../middlewares/userAuthentication')
 
-router.use('/users', usersRouter)
-router.use('/menus', menusRouter)
-router.use('/carts', cartsRouter)
-router.use('/orders', orderRouter)
+router.use(usersRouter)
+router.use(menusRouter)
+router.use('/', userAuthentication, cartsRouter)
+router.use('/', userAuthentication, orderRouter)
 
 router.use(errorHandler)
 

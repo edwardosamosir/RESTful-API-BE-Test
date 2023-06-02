@@ -3,6 +3,6 @@ const router = express.Router();
 const MenuController = require('../controllers/menuController');
 
 // Show All Menus Endpoint
-router.get('/', MenuController.showAllMenus)
+router.get('/menus', MenuController.showAllMenus)
 
 module.exports = router;
