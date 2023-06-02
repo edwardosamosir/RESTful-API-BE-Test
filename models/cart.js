@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     totalPrice: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 0
     },
     status: {
       type: DataTypes.BOOLEAN,

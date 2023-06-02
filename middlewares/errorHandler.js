@@ -29,6 +29,10 @@ const errorHandler = (error, req, res, next) => {
             status = 401;
             message = "Invalid Token";
             break;
+        case "NotFound":
+            status = 404;
+            message = "Menu Not Found";
+            break;
     }
 
     res.status(status).json({ message });
