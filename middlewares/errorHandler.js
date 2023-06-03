@@ -29,9 +29,17 @@ const errorHandler = (error, req, res, next) => {
             status = 401;
             message = "Invalid Token";
             break;
-        case "NotFound":
+        case "MenuNotFound":
             status = 404;
             message = "Menu Not Found";
+            break;
+        case "ItemNotFound":
+            status = 404;
+            message = "Item Not Found";
+            break;
+        case "CartNotFound":
+            status = 404;
+            message = "Cart Not Found";
             break;
         case "NotSufficientBalance":
             status = 403;

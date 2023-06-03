@@ -8,10 +8,13 @@ class UserController {
             // Extracting email and password from the request body using destructuring
             const { email, password } = req.body;
 
-            if (!email) { // Checking if email is not provided
+            // Checking if email is not provided
+            if (!email) {
                 throw { name: "EmailIsRequired" };
             }
-            if (!password) { // Checking if password is not provided
+
+            // Checking if password is not provided
+            if (!password) { 
                 throw { name: "PasswordIsRequired" };
             }
 
@@ -23,13 +26,17 @@ class UserController {
 
             // Comparing the provided password with the hashed password
             const isPasswordCorrect = compareHash(password, user.password);
-            if (!isPasswordCorrect) { // Checking if password comparison is incorrect
+
+            // Checking if password comparison is incorrect
+            if (!isPasswordCorrect) {
                 throw { name: "WrongEmailOrPassword" };
             }
 
             // Generating an encoded token with user's ID as payload
             const encodedToken = encodeToken({ id: user.id });
-            const responseBody = { // Creating a response body object
+
+            // Creating a response body object
+            const responseBody = { 
                 access_token: encodedToken,
                 username: user.username,
                 email: user.email,
@@ -59,7 +66,8 @@ class UserController {
                 phoneNumber
             });
             
-            const responseBody = { // Creating a response body object
+            // Creating a response body object
+            const responseBody = { 
                 id: newCustomer.id,
                 email: newCustomer.email,
                 message: `User with email ${newCustomer.email} and username ${newCustomer.username} is succesfully registered`

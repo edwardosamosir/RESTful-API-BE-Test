@@ -42,7 +42,7 @@ class CartController {
             // Find the menu item
             const menu = await Menu.findByPk(menuId);
             if (!menu) {
-                throw { name: "NotFound" };
+                throw { name: "MenuNotFound" };
             }
 
             // Find or create the customer's cart
@@ -110,7 +110,7 @@ class CartController {
 
             // Validate the existence cart item to update
             if (!cartItem) {
-                throw { name: "NotFound" };
+                throw { name: "ItemNotFound" };
             }
 
             // Find the customer's cart
@@ -175,7 +175,7 @@ class CartController {
 
             // Validate the existence cart item to delete
             if (!cartItem) {
-                throw { name: "NotFound" };
+                throw { name: "ItemNotFound" };
             }
 
             // Find the customer's cart

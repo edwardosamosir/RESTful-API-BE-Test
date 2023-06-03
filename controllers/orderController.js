@@ -26,7 +26,7 @@ class OrderController {
 
             // Validate the existence of customer cart to checkout as an order
             if (!customerCart) {
-                throw { name: "NotFound" };
+                throw { name: "CartNotFound" };
             }
 
             // Create new a order
