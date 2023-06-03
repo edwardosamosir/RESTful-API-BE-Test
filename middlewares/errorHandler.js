@@ -33,6 +33,10 @@ const errorHandler = (error, req, res, next) => {
             status = 404;
             message = "Menu Not Found";
             break;
+        case "NotSufficientBalance":
+            status = 403;
+            message = "Insufficient balance. Payment required!";
+            break;
     }
 
     res.status(status).json({ message });
