@@ -49,6 +49,10 @@ const errorHandler = (error, req, res, next) => {
             status = 403;
             message = "Insufficient balance. Payment required!";
             break;
+        case "Forbidden":
+            status = 403;
+            message = "Forbidden, Admin Authentication required!.";
+            break;
     }
 
     res.status(status).json({ message });

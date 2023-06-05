@@ -1,7 +1,7 @@
 const { decodeToken } = require("../helpers/jwtEncoderDecoder");
 const { User } = require("../models");
 
-const userAuthentication = async (req, res, next) => {
+const adminAuthentication = async (req, res, next) => {
     try {
         const { access_token } = req.headers;
 
@@ -20,6 +20,11 @@ const userAuthentication = async (req, res, next) => {
             throw { name: "InvalidToken" };
         }
 
+        // Check if user has admin role
+        if (userData.role !== "Admin") {
+            throw { name: "Forbidden" };
+        }        
+
         // Assign user data to req.user
         req.user = {
             id: userData.id,
@@ -35,4 +40,4 @@ const userAuthentication = async (req, res, next) => {
     }
 };
 
-module.exports = userAuthentication;
+module.exports = adminAuthentication;
