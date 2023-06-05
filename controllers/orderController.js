@@ -1,4 +1,5 @@
 const { Order, OrderItem, Cart, CartItem, User, Profile, Menu, sequelize } = require("../models");
+const redis = require("../config/redis")
 
 class OrderController {
     static async createOrder(req, res, next) {
@@ -61,22 +62,25 @@ class OrderController {
             });
 
             // Validate current balance sufficiency
-            if(customerCart.totalPrice > customer.Profile.currentBalance){
+            if (customerCart.totalPrice > customer.Profile.currentBalance) {
                 throw { name: "NotSufficientBalance" };
             }
 
             // Deduct customer's current balance
             customer.Profile.currentBalance -= customerCart.totalPrice;
             // Save the updated balance to the database
-            await customer.Profile.save({ transaction: t }); 
+            await customer.Profile.save({ transaction: t });
 
             // Change the cart status to true, indicating that the cart and items have already been checked out for the order
-            customerCart.status = true 
+            customerCart.status = true
             // Save the updated cart status to the database
-            await customerCart.save({ transaction: t }); 
+            await customerCart.save({ transaction: t });
 
             // Commit the transaction
             await t.commit();
+
+            // Caching Invalidation so the latest changes can be retrieved
+            await redis.flushall();
 
             res.status(200).json({ message: "The cart has been successfully checked out, and an order has been created." });
         } catch (error) {
@@ -91,21 +95,33 @@ class OrderController {
             // Get the user ID from the request object
             const userId = req.user.id;
 
-            // Find all orders and its items
-            const customerOrders = await Order.findAll({
-                where: {
-                    UserId: userId
-                },
-                include: [
-                    {
-                        model: OrderItem,
-                        include: [{ model: Menu }]
-                    },
-                ],
-            });
+            // Generate the cache key based on the userId 
+            const cacheKey = `menus:getMenus:${userId}`;
 
-            // Return the customer's orders as a JSON response
-            res.status(200).json(customerOrders);
+            // retrieve the cached data
+            const ordersCache = await redis.get(cacheKey);
+
+            // If cached data exists, parse it and send it as the response
+            if (ordersCache) {
+                const responseBody = JSON.parse(ordersCache)
+                res.status(200).json(responseBody)
+            } else {
+                // Find all orders and its items
+                const customerOrders = await Order.findAll({
+                    where: {
+                        UserId: userId
+                    },
+                    include: [
+                        {
+                            model: OrderItem,
+                            include: [{ model: Menu }]
+                        },
+                    ],
+                });
+
+                // Return the customer's orders as a JSON response
+                res.status(200).json(customerOrders);
+            }
 
         } catch (error) {
             // Pass any errors to the next middleware
