@@ -80,6 +80,14 @@ class UserController {
             next(error);
         }
     }
+
+    static async addUserBalance(req, res, next) {
+        try {
+            console.log("Test EndPoint users/add-balance")
+        } catch (error) {
+            
+        }
+    }
 }
 
 module.exports = UserController;

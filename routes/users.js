@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const UserController = require('../controllers/userController');
+const userController = require('../controllers/userController');
 
 // Register and Login Endpoint
-router.post('/login', UserController.loginUser)
-router.post('/register', UserController.registerUser)
+router.post('/users/login', userController.loginUser);
+router.post('/users/register', userController.registerUser);
+router.post('/users/add-balance', userController.addUserBalance);
 
-
-module.exports = router;
-
+module.exports = router

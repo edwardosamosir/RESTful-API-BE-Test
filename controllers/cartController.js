@@ -116,10 +116,16 @@ class CartController {
             // Find the customer's cart
             const customerCart = await Cart.findOne({
                 where: {
-                    id: cartItem.CartId
+                    id: cartItem.CartId,
+                    status: false,
                 },
                 transaction: t,
             })
+
+            // Validate the existence of customer's cart to update
+            if (!customerCart) {
+                throw { name: "CartNotFound" };
+            }
 
             // Calculate the total price difference
             const totalPriceDiff = (quantity - cartItem.quantity) * cartItem.Menu.price;
