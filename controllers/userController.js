@@ -1,4 +1,4 @@
-const { User, Profile, sequelize} = require("../models");
+const { User, Profile, sequelize } = require("../models");
 const { compareHash } = require("../helpers/bcryptHasher");
 const { encodeToken } = require("../helpers/jwtEncoderDecoder");
 
@@ -66,6 +66,11 @@ class UserController {
                 phoneNumber
             });
 
+            // Creating a new customer profile
+            await Profile.create({
+                UserId: newCustomer.id,
+            });
+
             // Creating a response body object
             const responseBody = {
                 id: newCustomer.id,
@@ -78,6 +83,54 @@ class UserController {
         } catch (error) {
             // Passing the error to the next middleware functions
             next(error);
+        }
+    }
+
+    static async editProfile(req, res, next) {
+        try {
+            const userId = req.user.id
+            // Extracting firstName, lastName, address from the request body using destructuring
+            const { firstName, lastName, address } = req.body
+
+            // Find profile of the user
+            const profile = await Profile.findOne({
+                where: {
+                    UserId: userId
+                }
+            })
+
+            // Check if the profile exists
+            if (!profile) {
+                throw { name: "ProfileNotFound" };
+            }
+
+            // Check if any values have changed
+            if (profile.firstName == firstName && profile.lastName == lastName && profile.address === address) {
+                return res.status(204).json({ message: "No changes were made to the profile item" });
+            }
+
+            // Update the profile with the provided data
+            await profile.update({
+                firstName,
+                lastName,
+                address
+            })
+
+            // Fetch the updated profile to include in the response
+            const updatedProfile = await Profile.findOne({
+                where: {
+                    UserId: userId
+                }
+            });
+
+            // Return the updated profile and a success message
+            res.status(200).json({
+                profile: updatedProfile,
+                message: `Profile is successfully updated`
+            })
+        } catch (error) {
+            // Passing the error to the next middleware functions
+            next(error)
         }
     }
 
