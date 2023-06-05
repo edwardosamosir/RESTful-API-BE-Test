@@ -67,39 +67,39 @@ class MenuController {
             } else {
                 // Retrieve menus based on the query parameters
                 const menus = await Menu.findAndCountAll(queryOptions);
-                if (menus) {
-                    const totalCount = menus.count;
-                    const currentPage = page && page.number ? parseInt(page.number) : 1;
-                    const pageSize = Number(limit) || 5;
-                    const totalPages = Math.ceil(totalCount / pageSize);
 
-                    // Prepare the response object
-                    const responseBody = {
-                        menus: menus.rows,
-                        currentPage,
-                        pageSize,
-                        totalCount,
-                        totalPages,
-                    };
+                const totalCount = menus.count;
+                const currentPage = page && page.number ? parseInt(page.number) : 1;
+                const pageSize = Number(limit) || 5;
+                const totalPages = Math.ceil(totalCount / pageSize);
 
-                    // Set next and previous page numbers if applicable
-                    if (currentPage < totalPages) {
-                        responseBody.nextPage = currentPage + 1;
-                    };
+                // Prepare the response object
+                const responseBody = {
+                    menus: menus.rows,
+                    currentPage,
+                    pageSize,
+                    totalCount,
+                    totalPages,
+                };
 
-                    if (currentPage > 1) {
-                        responseBody.previousPage = currentPage - 1;
-                    };
+                // Set next and previous page numbers if applicable
+                if (currentPage < totalPages) {
+                    responseBody.nextPage = currentPage + 1;
+                };
 
-                    // Store the response body in the redis caching using the cache key
-                    await redis.set(cacheKey, JSON.stringify(responseBody));
+                if (currentPage > 1) {
+                    responseBody.previousPage = currentPage - 1;
+                };
 
-                    // Expire the cache after a certain time (e.g., half an hour)
-                    await redis.expire(cacheKey, 1800);
+                // Store the response body in the redis caching using the cache key
+                await redis.set(cacheKey, JSON.stringify(responseBody));
 
-                    // Sending a JSON response with the response body and status code 200
-                    res.status(200).json(responseBody);
-                }
+                // Expire the cache after a certain time (e.g., half an hour)
+                await redis.expire(cacheKey, 1800);
+
+                // Sending a JSON response with the response body and status code 200
+                res.status(200).json(responseBody);
+
             }
 
         } catch (error) {
@@ -143,7 +143,7 @@ class MenuController {
                 price,
                 imageUrl
             });
-             
+
             // Caching Invalidation so the latest changes can be retrieved
             await redis.flushall();
 
@@ -154,7 +154,7 @@ class MenuController {
                     message: `Succesfully Added ${createdMenu.name} Menu!`
                 }
             );
-            
+
         } catch (error) {
             // Passing the error to the next middleware functions
             next(error);
@@ -205,7 +205,7 @@ class MenuController {
             }
 
             // Check if any values have changed
-            if (menu.name == name && menu.price == price && menu.imageUrl === imageUrl) {
+            if (menu.name === name && menu.price == price && menu.imageUrl === imageUrl) {
                 return res.status(204).json({ message: "No changes were made to the menu item" });
             }
 
