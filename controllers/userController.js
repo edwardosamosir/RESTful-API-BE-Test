@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Profile, sequelize} = require("../models");
 const { compareHash } = require("../helpers/bcryptHasher");
 const { encodeToken } = require("../helpers/jwtEncoderDecoder");
 
@@ -14,14 +14,14 @@ class UserController {
             }
 
             // Checking if password is not provided
-            if (!password) { 
+            if (!password) {
                 throw { name: "PasswordIsRequired" };
             }
 
             // Finding a user record with the provided email
             const user = await User.findOne({ where: { email } });
             if (!user) { // Checking if user record is not found
-                throw { name: "WrongEmailOrPassword" }; 
+                throw { name: "WrongEmailOrPassword" };
             }
 
             // Comparing the provided password with the hashed password
@@ -36,7 +36,7 @@ class UserController {
             const encodedToken = encodeToken({ id: user.id });
 
             // Creating a response body object
-            const responseBody = { 
+            const responseBody = {
                 access_token: encodedToken,
                 username: user.username,
                 email: user.email,
@@ -65,9 +65,9 @@ class UserController {
                 role: "Customer",
                 phoneNumber
             });
-            
+
             // Creating a response body object
-            const responseBody = { 
+            const responseBody = {
                 id: newCustomer.id,
                 email: newCustomer.email,
                 message: `User with email ${newCustomer.email} and username ${newCustomer.username} is succesfully registered`
@@ -82,10 +82,41 @@ class UserController {
     }
 
     static async addUserBalance(req, res, next) {
+        // Begin a transaction
+        const t = await sequelize.transaction();
         try {
-            console.log("Test EndPoint users/add-balance")
+            const userId = req.user.id
+            const { amount } = req.body
+
+            // Validate the amount to add
+            if (amount <= 0) {
+                throw { name: "InvalidAmount" };
+            }
+
+            // Find the user's profile to add balance
+            const profile = await Profile.findOne({
+                where: { UserId: userId },
+                transaction: t,
+            });
+
+            // Update the current balance
+            profile.currentBalance += Number(amount);
+
+            // Save the changes to the database
+            await profile.save({ transaction: t });
+
+            // Commit the transaction
+            await t.commit();
+
+            // Return the updated profile or a success message
+            return res.status(200).json({ message: 'Balance added successfully' });
+
         } catch (error) {
-            
+            console.log(error)
+            // Rollback the transaction in case of an error
+            await t.rollback();
+            // Passing the error to the next middleware functions
+            next(error);
         }
     }
 }

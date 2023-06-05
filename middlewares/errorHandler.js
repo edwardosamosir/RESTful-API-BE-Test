@@ -24,6 +24,10 @@ const errorHandler = (error, req, res, next) => {
             status = 400;
             message = "Access required, please sign in first!";
             break;
+        case "InvalidAmount":
+            status = 400;
+            message = "Invalid amount. Amount must be a positive number.";
+            break;
         case "InvalidToken":
         case "JsonWebTokenError":
             status = 401;
