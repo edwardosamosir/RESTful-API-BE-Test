@@ -1,5 +1,6 @@
 const { Menu, Sequelize } = require("../models");
 const { Op } = Sequelize;
+const redis = require("../config/redis")
 
 class MenuController {
     static async showAllMenus(req, res, next) {
@@ -53,35 +54,54 @@ class MenuController {
         }
 
         try {
-            // Retrieve menus based on the query parameters
-            const menus = await Menu.findAndCountAll(queryOptions);
-            if (menus) {
-                const totalCount = menus.count;
-                const currentPage = page && page.number ? parseInt(page.number) : 1;
-                const pageSize = Number(limit) || 5;
-                const totalPages = Math.ceil(totalCount / pageSize);
+            // Generate the cache key based on the request query parameters 
+            const cacheKey = `menus:getMenus:${JSON.stringify(req.query)}`;
 
-                // Prepare the response object
-                const responseBody = {
-                    menus: menus.rows,
-                    currentPage,
-                    pageSize,
-                    totalCount,
-                    totalPages,
-                };
+            // retrieve the cached data
+            const menusCache = await redis.get(cacheKey);
 
-                // Set next and previous page numbers if applicable
-                if (currentPage < totalPages) {
-                    responseBody.nextPage = currentPage + 1;
-                };
+            // If cached data exists, parse it and send it as the response
+            if (menusCache) {
+                const responseBody = JSON.parse(menusCache)
+                res.status(200).json(responseBody)
+            } else {
+                // Retrieve menus based on the query parameters
+                const menus = await Menu.findAndCountAll(queryOptions);
+                if (menus) {
+                    const totalCount = menus.count;
+                    const currentPage = page && page.number ? parseInt(page.number) : 1;
+                    const pageSize = Number(limit) || 5;
+                    const totalPages = Math.ceil(totalCount / pageSize);
 
-                if (currentPage > 1) {
-                    responseBody.previousPage = currentPage - 1;
-                };
+                    // Prepare the response object
+                    const responseBody = {
+                        menus: menus.rows,
+                        currentPage,
+                        pageSize,
+                        totalCount,
+                        totalPages,
+                    };
 
-                // Sending a JSON response with the response body and status code 200
-                res.status(200).json(responseBody);
+                    // Set next and previous page numbers if applicable
+                    if (currentPage < totalPages) {
+                        responseBody.nextPage = currentPage + 1;
+                    };
+
+                    if (currentPage > 1) {
+                        responseBody.previousPage = currentPage - 1;
+                    };
+
+                    // Store the response body in the redis caching using the cache key
+                    await redis.set(cacheKey, JSON.stringify(responseBody));
+
+                    // Expire the cache after a certain time (e.g., half an hour)
+                    await redis.expire(cacheKey, 1800);
+
+                    // Sending a JSON response with the response body and status code 200
+                    res.status(200).json(responseBody);
+                }
             }
+
         } catch (error) {
             console.log(error);
             // Passing the error to the next middleware functions
@@ -123,6 +143,9 @@ class MenuController {
                 price,
                 imageUrl
             });
+             
+            // Caching Invalidation so the latest changes can be retrieved
+            await redis.flushall();
 
             // Send a response with the created menu item and success message
             res.status(201).json(
@@ -131,7 +154,7 @@ class MenuController {
                     message: `Succesfully Added ${createdMenu.name} Menu!`
                 }
             );
-
+            
         } catch (error) {
             // Passing the error to the next middleware functions
             next(error);
@@ -153,6 +176,9 @@ class MenuController {
             await Menu.destroy({
                 where: { id }
             });
+
+            // Caching Invalidation so the latest changes can be retrieved
+            await redis.flushall();
 
             // Send a response with a success message
             res.status(200).json({
@@ -192,6 +218,9 @@ class MenuController {
 
             // Fetch the updated menu item to include in the response
             const updatedMenu = await Menu.findByPk(id);
+
+            // Caching Invalidation so the latest changes can be retrieved
+            await redis.flushall();
 
             res.status(200).json({
                 menu: updatedMenu,
