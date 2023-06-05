@@ -1,4 +1,5 @@
 const { Cart, CartItem, Menu, sequelize } = require("../models");
+const redis = require("../config/redis")
 
 class CartController {
 

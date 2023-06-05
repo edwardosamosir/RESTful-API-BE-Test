@@ -80,7 +80,8 @@ class OrderController {
             await t.commit();
 
             // Caching Invalidation so the latest changes can be retrieved
-            await redis.flushall();
+            const cacheKey = `orders:getOrders:${userId}`;
+            await redis.del(cacheKey);
 
             res.status(200).json({ message: "The cart has been successfully checked out, and an order has been created." });
         } catch (error) {
@@ -96,7 +97,7 @@ class OrderController {
             const userId = req.user.id;
 
             // Generate the cache key based on the userId 
-            const cacheKey = `menus:getMenus:${userId}`;
+            const cacheKey = `orders:getOrders:${userId}`;
 
             // retrieve the cached data
             const ordersCache = await redis.get(cacheKey);
@@ -118,6 +119,12 @@ class OrderController {
                         },
                     ],
                 });
+
+                // Store the response body in the redis caching using the cache key
+                await redis.set(cacheKey, JSON.stringify(customerOrders));
+
+                // Expire the cache after a certain time (e.g., half an hour)
+                await redis.expire(cacheKey, 1800);
 
                 // Return the customer's orders as a JSON response
                 res.status(200).json(customerOrders);
