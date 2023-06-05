@@ -88,6 +88,28 @@ class MenuController {
             next(error);
         }
     }
+
+    static async showMenuById(req, res, next) {
+        try {
+            const { id } = req.params
+
+            // Find a menu by its id 
+            const menu = await Menu.findOne({
+                where: {
+                    id
+                }
+            })
+
+            // Validate the existence of found menu
+            if (!menu) throw { name: 'MenuNotFound' }
+
+            // Sending a JSON response with the response and status code 200
+            res.status(200).json(menu)
+        } catch (error) {
+            // Passing the error to the next middleware functions
+            next(error)
+        }
+    }
 }
 
 module.exports = MenuController;

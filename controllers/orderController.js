@@ -13,7 +13,8 @@ class OrderController {
             const customerCart = await Cart.findOne({
                 where: {
                     id: cartId,
-                    status: false
+                    UserId: userId,
+                    status: false,
                 },
                 include: [
                     {
