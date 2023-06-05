@@ -85,6 +85,33 @@ class OrderController {
             next(error)
         }
     }
+
+    static async showOrders(req, res, next) {
+        try {
+            // Get the user ID from the request object
+            const userId = req.user.id;
+
+            // Find all orders and its items
+            const customerOrders = await Order.findAll({
+                where: {
+                    UserId: userId
+                },
+                include: [
+                    {
+                        model: OrderItem,
+                        include: [{ model: Menu }]
+                    },
+                ],
+            });
+
+            // Return the customer's orders as a JSON response
+            res.status(200).json(customerOrders);
+
+        } catch (error) {
+            // Pass any errors to the next middleware
+            next(error);
+        }
+    }
 }
 
 module.exports = OrderController;
