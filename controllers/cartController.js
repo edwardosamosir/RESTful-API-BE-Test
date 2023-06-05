@@ -8,22 +8,40 @@ class CartController {
             // Get the user ID from the request object
             const userId = req.user.id;
 
-            // Find all cart items for the user where the status is false
-            const customerCart = await Cart.findAll({
-                where: {
-                    UserId: userId,
-                    status: false
-                },
-                include: [
-                    {
-                        model: CartItem,
-                        include: [{ model: Menu }]
-                    },
-                ],
-            });
+            // Generate the cache key based on the userId 
+            const cacheKey = `carts:getCarts:${userId}`;
 
-            // Return the customer's cart as a JSON response
-            res.status(200).json(customerCart);
+            // retrieve the cached data
+            const cartsCache = await redis.get(cacheKey);
+
+            // If cached data exists, parse it and send it as the response
+            if (cartsCache) {
+                const responseBody = JSON.parse(cartsCache)
+                res.status(200).json(responseBody)
+            } else {
+                // Find all cart items for the user where the status is false
+                const customerCart = await Cart.findAll({
+                    where: {
+                        UserId: userId,
+                        status: false
+                    },
+                    include: [
+                        {
+                            model: CartItem,
+                            include: [{ model: Menu }]
+                        },
+                    ],
+                });
+
+                // Store the response body in the redis caching using the cache key
+                await redis.set(cacheKey, JSON.stringify(customerCart));
+
+                // Expire the cache after a certain time (e.g., half an hour)
+                await redis.expire(cacheKey, 1800);
+
+                // Return the customer's cart as a JSON response
+                res.status(200).json(customerCart);
+            }
 
         } catch (error) {
             // Pass any errors to the next middleware
@@ -74,6 +92,10 @@ class CartController {
 
             // Commit the transaction
             await t.commit();
+
+            // Caching Invalidation so the latest changes can be retrieved
+            const cacheKey = `carts:getCarts:${userId}`;
+            await redis.del(cacheKey);
 
             const message = `Successfully added ${quantity} ${menu.name} to your cart.`;
             res.status(201).json({ customerCart, cartItemAdded, message });
@@ -133,7 +155,7 @@ class CartController {
             customerCart.totalPrice += Number(totalPriceDiff)
 
             // Save the changes, commit the transaction and return message as a JSON response  
-            if(Number(totalPriceDiff) === 0){
+            if (Number(totalPriceDiff) === 0) {
                 // Quantity remains the same
                 return res.status(200).json({
                     message: `No change made to the ${cartItem.Menu.name} item`
@@ -148,6 +170,13 @@ class CartController {
                 await customerCart.save({ transaction: t });
                 await cartItem.update({ quantity }, { transaction: t });
                 await t.commit();
+
+                // Caching Invalidation: Delete the cache for the user's cart
+                const userId = req.user.id;
+                const cacheKey = `carts:getCarts:${userId}`;
+                await redis.del(cacheKey);
+
+                // Return message as a JSON response
                 const message = `Successfully modified the quantity of ${cartItem.Menu.name} item to ${cartItem.quantity}.`;
                 res.status(200).json({ customerCart, cartItem, message })
             }
@@ -204,12 +233,18 @@ class CartController {
             // Commit the transaction
             await t.commit();
 
+            // Caching Invalidation so the latest changes can be retrieved
+            const userId = req.user.id;
+            const cacheKey = `carts:getCarts:${userId}`;
+            await redis.del(cacheKey);
+
             // Return message as a JSON response
             res.status(200).json({
                 message: `Successfully deleted ${cartItem.Menu.name} item from cart`
             })
 
         } catch (error) {
+            console.log(error)
             // Rollback the transaction on error
             await t.rollback();
             next(error);
