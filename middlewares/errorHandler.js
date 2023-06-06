@@ -32,7 +32,7 @@ const errorHandler = (error, req, res, next) => {
         case "JsonWebTokenError":
             status = 401;
             message = "Invalid Token";
-            break; ProfileNotFound
+            break;
         case "ProfileNotFound":
             status = 404;
             message = "Profile Not Found";

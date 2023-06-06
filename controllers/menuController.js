@@ -103,7 +103,6 @@ class MenuController {
             }
 
         } catch (error) {
-            console.log(error);
             // Passing the error to the next middleware functions
             next(error);
         }

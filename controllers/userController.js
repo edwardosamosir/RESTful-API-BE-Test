@@ -162,7 +162,7 @@ class UserController {
             await t.commit();
 
             // Return the updated profile or a success message
-            return res.status(200).json({ message: 'Balance added successfully' });
+            return res.status(200).json({ message: 'Successfully added balance.' });
 
         } catch (error) {
             console.log(error)

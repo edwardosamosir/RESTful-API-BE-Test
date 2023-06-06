@@ -83,7 +83,7 @@ class OrderController {
             const cacheKey = `orders:getOrders:${userId}`;
             await redis.del(cacheKey);
 
-            res.status(200).json({ message: "The cart has been successfully checked out, and an order has been created." });
+            res.status(201).json({ message: "The cart has been successfully checked out, and an order has been created." });
         } catch (error) {
             // Rollback the transaction on error
             await t.rollback();

@@ -157,7 +157,7 @@ class CartController {
             // Save the changes, commit the transaction and return message as a JSON response  
             if (Number(totalPriceDiff) === 0) {
                 // Quantity remains the same
-                return res.status(200).json({
+                return res.status(204).json({
                     message: `No change made to the ${cartItem.Menu.name} item`
                 })
             }
