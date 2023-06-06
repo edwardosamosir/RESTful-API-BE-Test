@@ -165,7 +165,6 @@ class UserController {
             return res.status(200).json({ message: 'Successfully added balance.' });
 
         } catch (error) {
-            console.log(error)
             // Rollback the transaction in case of an error
             await t.rollback();
             // Passing the error to the next middleware functions
