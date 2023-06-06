@@ -244,7 +244,6 @@ class CartController {
             })
 
         } catch (error) {
-            console.log(error)
             // Rollback the transaction on error
             await t.rollback();
             next(error);

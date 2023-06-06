@@ -5,7 +5,7 @@ const redis = require("../config/redis")
 class MenuController {
     static async showAllMenus(req, res, next) {
         // Retrieve query parameters
-        const { maxPrice, sort, page } = req.query;
+        const { maxPrice, sort, page } = req.query || {};
         // Prepare the query options
         const queryOptions = {};
         let limit;
@@ -101,7 +101,7 @@ class MenuController {
                 res.status(200).json(responseBody);
 
             }
-
+            
         } catch (error) {
             // Passing the error to the next middleware functions
             next(error);
